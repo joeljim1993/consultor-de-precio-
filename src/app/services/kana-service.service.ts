@@ -47,6 +47,7 @@ export class KanaServiceService {
 
 
   getListProductFromKana$() {
+
     const data$ = this.getQuery(this.query)
     .pipe(
       map(
@@ -55,6 +56,7 @@ export class KanaServiceService {
       ),
     )
     return data$;
+    
 }
 
 

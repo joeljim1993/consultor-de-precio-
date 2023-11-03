@@ -47,27 +47,15 @@ export class KanaServiceService {
 
 
   getListProductFromKana$() {
-
-
     const data$ = this.getQuery(this.query)
     .pipe(
-      tap(info=>console.log("info",info)),
-      map(({data: {currentPriceList: { products: { edges },},},}) =>{
-        console.log("edges",edges)
-        return edges
-      }
+      map(
+        ({data: {currentPriceList: {products: { edges },}, },}) =>
+          edges.map(( edge: any ) => edge.node.product)
       ),
-      tap(info => console.log("lo que llega despues del map  ",info)
-       ),
-      map( ({edges:{ node}})=>{
-        console.log("segundo map ", node);
-        
-      }  )
-
     )
-
     return data$;
-  }
+}
 
 
 

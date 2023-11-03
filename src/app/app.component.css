@@ -1,0 +1,13 @@
+ body{
+  height: 100%;
+ }
+ .container {
+    display: grid;
+    grid-template-columns: 1fr 30%;
+
+    grid-auto-flow: row;
+    height: 100%;
+    overflow: hidden;
+
+  }
+

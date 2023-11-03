@@ -1,0 +1,16 @@
+<h1>Ultimos Precios Buscados</h1>
+
+<!-- TODO:replicar con un ngFor -->
+<div class="card-content" *ngFor="let product of latestProductSearches ">
+
+        <div class="card-image">
+          <img class="image" width="100px"  height="auto" [src]="product.imgSrc" />
+        </div>
+
+        <div class="card-description">
+          <p class="title">{{ product.name}} </p>
+          <p class="description">{{ product.priceVED}}</p>
+          <p class="description">{{ product.priceUSD}}</p>
+
+</div>
+

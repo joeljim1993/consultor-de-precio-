@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { KanaServiceService } from './services/kana-service.service';
+import { Component, Input, inject } from '@angular/core';
+import { KanaService } from './services/kana-service.service';
+import { Product } from './interfaces/productForKana.interface';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,16 @@ import { KanaServiceService } from './services/kana-service.service';
 })
 export class AppComponent {
 
-  public kanaService = inject( KanaServiceService )
+  public kanaService = inject( KanaService )
 
 
+
+
+  newProduct(product: any):void{
+    console.log("ejeciutando ");
+
+  console.log("producto encontado pasado a product card", product);
+
+}
 
 }

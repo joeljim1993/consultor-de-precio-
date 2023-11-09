@@ -5,9 +5,11 @@
     <tr>
       <td>
         <input
-          type="text"
+          type="number"
           placeholder="Escanea tu producto"
           class="search"
+          (keyup.enter)="searchProducts()"
+          #txtInput
          />
       </td>
       <td></td>
@@ -16,6 +18,9 @@
 
       </td>
       <td>
+        <input [formControl]="inputSearch"
+        #inputDos
+        >
 
       </td>
     </tr>

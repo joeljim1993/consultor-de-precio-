@@ -1,26 +1,42 @@
-import { Injectable, Pipe } from '@angular/core';
-import { mergeMap, of,  Observable, map, tap } from 'rxjs';
-import { fromFetch } from "rxjs/fetch";
+import { EventEmitter, Injectable, Output, Pipe } from '@angular/core';
+import { mergeMap, of, Observable, map, tap, BehaviorSubject } from 'rxjs';
+import { fromFetch } from 'rxjs/fetch';
+import { Product } from '../interfaces/productForKana.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class KanaServiceService {
+export class KanaService {
+  // TODO: como le doy un dato especifico a cada uno
+  // TODO:necesito hacer un nuevo objecto solo con las propiedades a usar
 
-  constructor(){
+  // arreglo que guarda los pdoructos buscados
+
+  public lastSearchedProducts: Product[] = [];
+
+  // lista de productos temporales
+  public products: any[] = [];
+  
+  // productos traidos de kana directamente
+
+  public productsKana = new BehaviorSubject<any>('sin datos');
+
+  public productFound = new BehaviorSubject<any>("0")
+
+
+  constructor() {
+
 
     this.getListProductFromKana$()
-      .pipe(
-        tap((response) => console.log("ESTE ES EL LOG DEL SERVICIO",response)
-      ))
+      .pipe(tap(() => console.log('products', this.products)))
       .subscribe();
 
+    this.productsKana
+      .pipe(tap((products) => console.log('products en el behavior', products)))
+      .subscribe();
   }
 
-
-
   getQuery(query: string) {
-
     const url = 'https://kana.develop.cecosesola.imolko.net/graphql';
     const dataQuery = {
       operationName: null,
@@ -31,72 +47,78 @@ export class KanaServiceService {
       query,
     };
     const option = {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(payload),
-      headers: new Headers({ "content-type": "application/json" }),
+      headers: new Headers({ 'content-type': 'application/json' }),
     };
 
-    const data$ = fromFetch(url, option)
-    .pipe(
-      mergeMap( resp => resp.json()
-      )
-    );
+    const data$ = fromFetch(url, option).pipe(mergeMap((resp) => resp.json()));
 
     return data$;
   }
 
-
-  getListProductFromKana$() {
-
-    const data$ = this.getQuery(this.query)
-    .pipe(
-      map(
-        ({data: {currentPriceList: {products: { edges },}, },}) =>
-          edges.map(( edge: any ) => edge.node.product)
-      ),
-    )
-    return data$;
-    
-}
-
-
-
-
-
-
-  query = `
-      query {
-        currentPriceList{
-          products{
-            edges{
-              node{
-                product{
-                  id
-                  name
-                  images
-                  presentation
-                  departments {
-                    description
-                  }
-                  pricePublished{
-                    priceBase {
-                      amount
-                    }
+  getListProductFromKana$(limit: number = 10) {
+    const query = `
+    query {
+      currentPriceList{
+        products(first:${limit} ){
+          edges{
+            node{
+              product{
+                id
+                barcode
+                name
+                images
+                presentation
+                departments {
+                  description
+                }
+                pricePublished{
+                  priceBase {
+                    amount
                   }
                 }
               }
             }
-            pageInfo{
-              hasNextPage
-              hasPreviousPage
-              startCursor
-              endCursor
-            }
+          }
+          pageInfo{
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
           }
         }
-      }`;
+      }
+    }`;
 
+    const data$ = this.getQuery(query).pipe(
+      tap((data) => console.log('data', data)),
+      map(
+        ({
+          data: {
+            currentPriceList: {
+              products: { edges },
+            },
+          },
+        }) => {
+          edges.map((edge: any) => {
+            let productsKana = edge.node.product;
 
+            this.products.push(productsKana);
+            this.productsKana.next(this.products);
+          });
+        }
+      )
+    );
+    return data$;
+  }
 
+  searchProduct(barcode: string): Product[] {
 
+    let foundP = this.products.filter(products => products.barcode === barcode)
+
+    this.productFound.next(foundP[0]);
+
+    return foundP;
+  }
 }

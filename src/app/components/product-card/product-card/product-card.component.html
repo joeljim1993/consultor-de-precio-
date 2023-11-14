@@ -5,11 +5,13 @@
 
   <div class="container-image">
    <img width="200px" height="auto" [src]="productFound.images">
+
+  </div>
   <div class="container-price">
 
-    <h3 class="product-name">{{ productFound.name | titlecase }} </h3>
-    <h3 class="product-name">{{ productFound.presentation | titlecase }} </h3>
-    <h3 class="product-price-bs">{{ productFound.pricePublished?.priceBase?.amount| number:"1.2-2" }} </h3>
+    <h3 class="product-name">Nombre :{{ productFound.name | titlecase }} </h3>
+    <h3 class="product-name">Presentacion:{{ productFound.presentation | titlecase }} </h3>
+    <h3 class="product-price-bs">Precio:{{ productFound.pricePublished?.priceBase?.amount| number:"1.2-2" }} </h3>
     <h4 class="product-price-dollar">{{ "0.95" | number:"1.2-2" }} </h4>
   </div>
 

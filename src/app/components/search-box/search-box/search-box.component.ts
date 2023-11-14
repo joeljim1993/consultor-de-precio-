@@ -29,6 +29,8 @@ export class SearchBoxComponent {
       ),
       tap(barcodeSearch => {
         this.kanaservice.searchProduct(barcodeSearch);
+     
+
         this.inputDos.nativeElement.value = "";
       } ),
 

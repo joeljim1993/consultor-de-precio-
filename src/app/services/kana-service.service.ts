@@ -117,8 +117,10 @@ export class KanaService {
 
   searchProduct(barcode: string): any {
 
-    let foundProduct:Product[] = this.products.filter(products => products.barcode === barcode)
-    if( !foundProduct) return;
+    let foundProduct:Product[] = this.products.filter(products => products.barcode === barcode);
+    console.log("foundProduct",foundProduct);
+
+
     this.productFound.next(foundProduct[0]);
 
     return foundProduct;

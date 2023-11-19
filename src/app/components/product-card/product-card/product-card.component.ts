@@ -11,18 +11,19 @@ import { Product } from 'src/app/interfaces/productForKana.interface';
 export class ProductCardComponent {
 
 
-  public productFound:Product;
+  public productFound!:Product;
 
   constructor( private kanaService :KanaService){
-    this.productFound={};
+
     // this.kanaService.productFound = this.productFound;
     this.kanaService.productFound
     .pipe(
-      tap(info => console.log("loq ue llega en el pipe",info)
-      ),
+
+
       tap(product => this.productFound = product),
-      tap((info)=> console.log("product foun en product card",this.productFound)
-       )
+      tap((info)=> console.log("product found en product card",this.productFound)
+       ),
+
     )
     .subscribe()
   }

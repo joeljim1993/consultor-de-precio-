@@ -2,6 +2,7 @@ import { EventEmitter, Injectable, Output, Pipe } from '@angular/core';
 import { of, Observable, BehaviorSubject, tap, mergeMap, map } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 import { Product } from '../interfaces/productForKana.interface';
+import { Data, Edge } from '../interfaces/kana-service.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class KanaService {
   public lastSearchedProducts: Product[] = [];
 
   // lista de productos temporales
-  public products: any[] = [];
+  public products: Product[] = [];
 
   // productos traidos de kana directamente
 
@@ -32,7 +33,7 @@ export class KanaService {
       .subscribe();
 
     this.productsKana
-      .pipe(tap((products: any) => console.log('products en el behavior', products)))
+      // .pipe(tap((products: any) => console.log('products en el behavior', products)))
       .subscribe();
   }
 
@@ -101,9 +102,8 @@ export class KanaService {
             },
           },
         }) => {
-          edges.map((edge: any) => {
-            let productsKana = edge.node.product;
-
+          edges.map((edge:Edge) => {
+            let productsKana:Product = edge.node.product;
             this.products.push(productsKana);
             this.productsKana.next(this.products);
           });
@@ -115,12 +115,14 @@ export class KanaService {
 
   }
 
-  searchProduct(barcode: string): Product[] {
+  searchProduct(barcode: string): any {
 
-    let foundP = this.products.filter(products => products.barcode === barcode)
+    let foundProduct:Product[] = this.products.filter(products => products.barcode === barcode);
+    console.log("foundProduct",foundProduct);
 
-    this.productFound.next(foundP[0]);
 
-    return foundP;
+    this.productFound.next(foundProduct[0]);
+
+    return foundProduct;
   }
 }

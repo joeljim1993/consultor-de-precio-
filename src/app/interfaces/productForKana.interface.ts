@@ -1,5 +1,6 @@
 
 export interface Product {
+  barcode: string;
   id?:             string;
   name?:           string;
   images?:         string[];

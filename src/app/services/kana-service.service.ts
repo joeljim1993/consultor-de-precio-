@@ -8,20 +8,19 @@ import { Data, Edge } from '../interfaces/kana-service.interface';
   providedIn: 'root',
 })
 export class KanaService {
-  // TODO: como le doy un dato especifico a cada uno
-  // TODO:necesito hacer un nuevo objecto solo con las propiedades a usar
+
+
+
 
   // arreglo que guarda los pdoructos buscados
-
   public lastSearchedProducts: Product[] = [];
 
   // lista de productos temporales
   public products: Product[] = [];
 
   // productos traidos de kana directamente
-
   public productsKana = new BehaviorSubject<any>('sin datos');
-
+  // producto resultado de la busqueda
   public productFound = new BehaviorSubject<any>("0")
 
 
@@ -122,6 +121,8 @@ export class KanaService {
 
 
     this.productFound.next(foundProduct[0]);
+    this.lastSearchedProducts.push( foundProduct[0] );
+    console.log("lista de ultimos buscados ",this.lastSearchedProducts);
 
     return foundProduct;
   }

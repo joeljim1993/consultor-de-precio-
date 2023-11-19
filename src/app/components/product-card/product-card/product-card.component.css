@@ -1,32 +1,25 @@
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  display: grid;
-  grid-template-columns: 30% 70%;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  border: 1px solid black;
-  background:#CBB8B4
 
-}
 .container-image{
 
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 200px;
-  margin-left: 30px;
+  margin-top: 20px;
+  min-width: 300px;
+  min-height: 300px;
+
 }
-.container-price{
-  width: 80%;
+.img-product{
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* align-items: end; */
-  padding: 0 30px 0 0;
+}
+
+.template-not-found{
+  display: flex;
+}
+
+text--template-not-found{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

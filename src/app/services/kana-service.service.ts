@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output, Pipe } from '@angular/core';
-import { mergeMap, of, Observable, map, tap, BehaviorSubject } from 'rxjs';
+import { of, Observable, BehaviorSubject, tap, mergeMap, map } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 import { Product } from '../interfaces/productForKana.interface';
 
@@ -16,7 +16,7 @@ export class KanaService {
 
   // lista de productos temporales
   public products: any[] = [];
-  
+
   // productos traidos de kana directamente
 
   public productsKana = new BehaviorSubject<any>('sin datos');
@@ -32,7 +32,7 @@ export class KanaService {
       .subscribe();
 
     this.productsKana
-      .pipe(tap((products) => console.log('products en el behavior', products)))
+      .pipe(tap((products: any) => console.log('products en el behavior', products)))
       .subscribe();
   }
 
@@ -52,12 +52,12 @@ export class KanaService {
       headers: new Headers({ 'content-type': 'application/json' }),
     };
 
-    const data$ = fromFetch(url, option).pipe(mergeMap((resp) => resp.json()));
+    const data$ = fromFetch(url, option).pipe(mergeMap((resp: any) => resp.json()));
 
     return data$;
   }
 
-  getListProductFromKana$(limit: number = 10) {
+  getListProductFromKana$(limit: number = 5) {
     const query = `
     query {
       currentPriceList{
@@ -92,7 +92,7 @@ export class KanaService {
     }`;
 
     const data$ = this.getQuery(query).pipe(
-      tap((data) => console.log('data', data)),
+      tap((data:any) => console.log('data', data)),
       map(
         ({
           data: {
@@ -111,6 +111,8 @@ export class KanaService {
       )
     );
     return data$;
+
+
   }
 
   searchProduct(barcode: string): Product[] {

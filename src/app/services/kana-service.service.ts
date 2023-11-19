@@ -16,7 +16,7 @@ export class KanaService {
   public lastSearchedProducts: Product[] = [];
 
   // lista de productos temporales
-  public products: Product[] = [];
+  public listProducts: Product[] = [];
 
   // productos traidos de kana directamente
   public productsKana = new BehaviorSubject<any>('sin datos');
@@ -28,7 +28,7 @@ export class KanaService {
 
 
     this.getListProductFromKana$()
-      .pipe(tap(() => console.log('products', this.products)))
+      .pipe(tap(() => console.log('products', this.listProducts)))
       .subscribe();
 
     this.productsKana
@@ -103,8 +103,8 @@ export class KanaService {
         }) => {
           edges.map((edge:Edge) => {
             let productsKana:Product = edge.node.product;
-            this.products.push(productsKana);
-            this.productsKana.next(this.products);
+            this.listProducts.push(productsKana);
+            this.productsKana.next(this.listProducts);
           });
         }
       )
@@ -116,14 +116,32 @@ export class KanaService {
 
   searchProduct(barcode: string): any {
 
-    let foundProduct:Product[] = this.products.filter(products => products.barcode === barcode);
+    let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
     console.log("foundProduct",foundProduct);
 
 
     this.productFound.next(foundProduct[0]);
-    this.lastSearchedProducts.push( foundProduct[0] );
-    console.log("lista de ultimos buscados ",this.lastSearchedProducts);
+    // this.lastSearchedProducts.push( foundProduct[0] );
+
+    this.verifyLastSearched( foundProduct[0] );
+
 
     return foundProduct;
   }
+
+  verifyLastSearched(product:Product):void{
+    console.log("funcionando",product);
+
+    let newProduct = product;
+    let indexProduct = this.listProducts.findIndex(product => product.id === newProduct.id );
+
+    if( indexProduct !== -1 ){
+      this.lastSearchedProducts.splice(indexProduct,1 );
+      this.lastSearchedProducts.push( newProduct );
+
+    }
+    console.log("lista de ultimos buscados ",this.lastSearchedProducts);
+  }
+
+
 }

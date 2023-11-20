@@ -23,6 +23,7 @@ export class KanaService {
   // producto resultado de la busqueda
   public productFound = new BehaviorSubject<any>("0")
 
+  public lastSearchedProducts$ = new BehaviorSubject<any>("sin productos ")
 
   constructor() {
 
@@ -133,6 +134,7 @@ export class KanaService {
       this.lastSearchedProducts.splice(indexProduct,1 );
       // el producto se agrega a la lista de ultimos buscados
       this.lastSearchedProducts.push( searchedProduct );
+      this.lastSearchedProducts$.next( this.lastSearchedProducts  )
 
     }
     console.log("lista de ultimos buscados ",this.lastSearchedProducts);

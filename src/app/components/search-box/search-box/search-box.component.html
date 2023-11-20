@@ -1,29 +1,39 @@
 
+<div class="container">
 
-<div class="boxContainer">
-  <table class="elementsContainer">
-    <tr>
-      <td>
-        <input
+  <div class="boxContainer">
+
+    <table class="elementsContainer">
+      <tr>
+        <td>
+          <input
+          [formControl]="inputSearch"
+          #inputDos
+          class="search"
+          placeholder="Escanea tu producto"
+          >
+        </td>
+        <td>
+          <mat-icon>search</mat-icon>
+        </td>
+
+      </tr>
+    </table>
+
+  </div>
+
+
+
+</div>
+
+
+
+
+  <!-- <input
           type="number"
           placeholder="Escanea tu producto"
           class="search"
           (keyup.enter)="searchProducts()"
           #txtInput
          />
-      </td>
-      <td></td>
-      <!-- aqui va el incono para buscar -->
-      <td class="icon-container">
-
-      </td>
-      <td>
-        <input [formControl]="inputSearch"
-        #inputDos
-        >
-
-      </td>
-    </tr>
-  </table>
-
-</div>
+      </td> -->

@@ -3,13 +3,21 @@
 
 
 }
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
 .boxContainer {
+  display: flex;
+
   background: #FFFF;
   width: 90%;
   height: 40px;
   padding: 0 10px;
   border-radius: 35px;
-  border: black;
+  border:1px black solid;
   border-width: 1px ;
 
 
@@ -24,12 +32,11 @@
 
 .search {
   height: 100%;
-  width:80%;
-  padding: 0 5px;
-  border-radius: 35px;
+  width:100%;
+
   font-size: 18px;
   font-weight: 500;
-
+  border: none;
 
 }
 

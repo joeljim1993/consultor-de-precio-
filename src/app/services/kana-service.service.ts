@@ -114,30 +114,25 @@ export class KanaService {
 
   }
 
-  searchProduct(barcode: string): any {
+  searchProduct(barcode: string): Product[] {
 
-    let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
+   let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
     console.log("foundProduct",foundProduct);
-
-
     this.productFound.next(foundProduct[0]);
-    // this.lastSearchedProducts.push( foundProduct[0] );
-
     this.verifyLastSearched( foundProduct[0] );
-
 
     return foundProduct;
   }
 
-  verifyLastSearched(product:Product):void{
-    console.log("funcionando",product);
+  verifyLastSearched(searchedProduct:Product):void{
 
-    let newProduct = product;
-    let indexProduct = this.listProducts.findIndex(product => product.id === newProduct.id );
-
+    console.log("funcionando",searchedProduct);
+    let indexProduct = this.listProducts.findIndex(product => product.id === searchedProduct.id );
     if( indexProduct !== -1 ){
+      // si el producto existe , lo elimina
       this.lastSearchedProducts.splice(indexProduct,1 );
-      this.lastSearchedProducts.push( newProduct );
+      // el producto se agrega a la lista de ultimos buscados
+      this.lastSearchedProducts.push( searchedProduct );
 
     }
     console.log("lista de ultimos buscados ",this.lastSearchedProducts);

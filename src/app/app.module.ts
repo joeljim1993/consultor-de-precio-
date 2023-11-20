@@ -2,6 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+
+import { MessagesModule } from 'primeng/messages';
+import { MatIconModule } from '@angular/material/icon';
+
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LastSearchedComponent } from './components/last-searched/last-searched.component';
@@ -20,7 +26,11 @@ import { SearchBoxComponent } from './components/search-box/search-box/search-bo
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule,
+    MatDividerModule,
+    MessagesModule,
+    MatIconModule
 
 
   ],

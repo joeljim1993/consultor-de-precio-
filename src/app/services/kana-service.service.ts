@@ -8,20 +8,19 @@ import { Data, Edge } from '../interfaces/kana-service.interface';
   providedIn: 'root',
 })
 export class KanaService {
-  // TODO: como le doy un dato especifico a cada uno
-  // TODO:necesito hacer un nuevo objecto solo con las propiedades a usar
+
+
+
 
   // arreglo que guarda los pdoructos buscados
-
   public lastSearchedProducts: Product[] = [];
 
   // lista de productos temporales
-  public products: Product[] = [];
+  public listProducts: Product[] = [];
 
   // productos traidos de kana directamente
-
   public productsKana = new BehaviorSubject<any>('sin datos');
-
+  // producto resultado de la busqueda
   public productFound = new BehaviorSubject<any>("0")
 
 
@@ -29,7 +28,7 @@ export class KanaService {
 
 
     this.getListProductFromKana$()
-      .pipe(tap(() => console.log('products', this.products)))
+      .pipe(tap(() => console.log('products', this.listProducts)))
       .subscribe();
 
     this.productsKana
@@ -104,8 +103,8 @@ export class KanaService {
         }) => {
           edges.map((edge:Edge) => {
             let productsKana:Product = edge.node.product;
-            this.products.push(productsKana);
-            this.productsKana.next(this.products);
+            this.listProducts.push(productsKana);
+            this.productsKana.next(this.listProducts);
           });
         }
       )
@@ -115,14 +114,29 @@ export class KanaService {
 
   }
 
-  searchProduct(barcode: string): any {
+  searchProduct(barcode: string): Product[] {
 
-    let foundProduct:Product[] = this.products.filter(products => products.barcode === barcode);
+   let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
     console.log("foundProduct",foundProduct);
-
-
     this.productFound.next(foundProduct[0]);
+    this.verifyLastSearched( foundProduct[0] );
 
     return foundProduct;
   }
+
+  verifyLastSearched(searchedProduct:Product):void{
+
+    console.log("funcionando",searchedProduct);
+    let indexProduct = this.listProducts.findIndex(product => product.id === searchedProduct.id );
+    if( indexProduct !== -1 ){
+      // si el producto existe , lo elimina
+      this.lastSearchedProducts.splice(indexProduct,1 );
+      // el producto se agrega a la lista de ultimos buscados
+      this.lastSearchedProducts.push( searchedProduct );
+
+    }
+    console.log("lista de ultimos buscados ",this.lastSearchedProducts);
+  }
+
+
 }

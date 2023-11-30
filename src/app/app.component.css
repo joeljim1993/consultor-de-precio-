@@ -2,7 +2,7 @@
 @import "primeng/resources/primeng.css";
 
  body{
-  height: 100%;
+  height: calc(100%-76px);
  }
  .container {
     display: grid;
@@ -11,6 +11,27 @@
     grid-auto-flow: row;
     height: 100%;
     overflow: hidden;
+
+  }
+
+  .container-searchbox{
+    margin-top: 20px;
+  }
+
+  .container--productsCard{
+    margin-top: 60px;
+  }
+
+  .navbar--container-text{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .navbar--text{
+    display: flex;
+    width: 300px;
+    font-size: 40rem;
 
   }
 

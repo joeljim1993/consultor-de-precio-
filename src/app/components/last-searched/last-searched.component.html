@@ -1,14 +1,53 @@
 <h1>Ultimos Precios Buscados</h1>
 
-<!-- TODO:replicar con un ngFor -->
-<div class="card-content" *ngFor="let product of latestProductSearches ">
+<div class="container--product">
 
-         <div class="card-image">
-          <img class="image" width="100px"  height="auto" [src]="product.images" />
-        </div>
+  <div class="container grid-nogutter "
+ *ngFor="let product of latestProductSearches.slice(-3) "  >
 
-        <div class="card-description">
-          <p class="title">{{ product.name}} </p>
+  <div class="container-image">
+
+    <img
+    class="img-product"
+    width="100px"
+    height="100px"
+    mat-card-image
+    src={{product.images}}
+    alt={{product.name}}
+    className="inline"
+    >
+  </div>
+
+  <mat-card className="inline" >
+
+    <div class="content-card flex flex-column">
+      <mat-card-content>
+        <mat-card-title>{{ product.name | titlecase }}</mat-card-title>
+        <!-- <mat-card-subtitle>{{ product.presentation | titlecase }}</mat-card-subtitle> -->
+
+      </mat-card-content>
+      <mat-card-content>
+        <h1>Precio:{{ product.pricePublished?.priceBase?.amount| number:"1.2-2" }}$</h1>
+        <h3></h3>
+      </mat-card-content>
+      <!-- <mat-card-footer>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-footer> -->
+    </div>
+
+  </mat-card>
+
 
 </div>
 
+</div>
+
+
+<!--
+7598001001018
+7592498220457
+5852868201212
+3800121400348
+783970996275
+
+ -->

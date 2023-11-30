@@ -58,7 +58,7 @@ export class KanaService {
     return data$;
   }
 
-  getListProductFromKana$(limit: number = 5) {
+  getListProductFromKana$(limit: number = 200) {
     const query = `
     query {
       currentPriceList{
@@ -127,18 +127,35 @@ export class KanaService {
 
   verifyLastSearched(searchedProduct:Product):void{
 
-    console.log("funcionando",searchedProduct);
-    let indexProduct = this.listProducts.findIndex(product => product.id === searchedProduct.id );
+    if( searchedProduct == undefined) return ;
+
+    let indexProduct = this.lastSearchedProducts.findIndex(product => product.id === searchedProduct.id );
     if( indexProduct !== -1 ){
       // si el producto existe , lo elimina
       this.lastSearchedProducts.splice(indexProduct,1 );
       // el producto se agrega a la lista de ultimos buscados
       this.lastSearchedProducts.push( searchedProduct );
-      this.lastSearchedProducts$.next( this.lastSearchedProducts  )
-
+      this.lastSearchedProducts$.next( this.lastSearchedProducts  );
+      return;
     }
-    console.log("lista de ultimos buscados ",this.lastSearchedProducts);
+    this.lastSearchedProducts.push( searchedProduct );
+    this.lastSearchedProducts$.next( this.lastSearchedProducts  );
+    console.log(" this.lastSearchedProducts en el servicio",this.lastSearchedProducts);
+
   }
 
 
 }
+
+
+/*
+
+7598001001018
+
+7592498220457
+
+5852868201212
+
+3800121400348
+
+*/

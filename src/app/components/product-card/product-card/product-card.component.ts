@@ -23,8 +23,7 @@ export class ProductCardComponent implements OnInit {
     .pipe(
 
       tap(product => this.productFound = product),
-      tap((info)=> console.log("product found en product card",this.productFound)
-       ),
+    
 
     )
     .subscribe()

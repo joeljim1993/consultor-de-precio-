@@ -10,14 +10,21 @@ import { KanaService } from 'src/app/services/kana-service.service';
 })
 export class LastSearchedComponent {
 
-  public latestProductSearches:Product[] | undefined;
+  public latestProductSearches:any;
+  // variable de prueba para css
+  public products:any;
 
   constructor( private kanaservice:KanaService){
     this.kanaservice.lastSearchedProducts$.pipe(
-      tap(listProduct => listProduct = this.latestProductSearches),
-      tap(()=> console.log("lasted", this.latestProductSearches))
+
+      tap(info => console.log("lo que llega a lastSearchedProducts$",info)),
+      tap(info => this.latestProductSearches = info ),
+      tap( ()=>console.log("ultimos productos en latestProductSearches.... ",this.latestProductSearches)
+        )
     )
     .subscribe();
+
+    this.products = this.kanaservice.listProducts
 
   }
 

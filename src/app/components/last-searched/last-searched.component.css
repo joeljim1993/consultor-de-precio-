@@ -1,0 +1,21 @@
+.container--product{
+  display: grid;
+}
+
+.container{
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.container-image{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  min-width: 100px;
+  min-height: 100px;
+
+}
+.img-product{
+  display: flex;
+}

@@ -12,7 +12,7 @@ export class AppComponent {
   public kanaService = inject( KanaService )
 
 
-
+  //TODO: esto lo dejaria despejado
 
   newProduct(product: any):void{
     console.log("ejeciutando ");

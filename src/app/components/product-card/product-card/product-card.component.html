@@ -1,61 +1,58 @@
-<ng-template
-  #sinCoincidencias
-  class="template-not-found"
-  >
+<ng-template #sinCoincidencias class="template-not-found">
   <div class="text--template-not-found">
-
-
-
-
-<div class="card">
-  <p-messages [(value)]="messages" [enableService]="true" [closable]="true"></p-messages>
-</div>
-
+    <div class="card">
+      <p-messages
+        [(value)]="messages"
+        [enableService]="true"
+        [closable]="true"
+      ></p-messages>
+    </div>
   </div>
 </ng-template>
 
-
-<div class="grid col-12 mr-4 ml-4 " class="container"  *ngIf="productFound;else sinCoincidencias">
-
+<div
+  class="grid col-12 mr-4 ml-4"
+  class="container"
+  *ngIf="productFound; else sinCoincidencias"
+>
   <div class="container-image">
-
     <img
-    class="img-product"
-    width="300px"
-    height="300px"
-    mat-card-image
-    src={{productFound.images}}
-    alt={{productFound.name}}
-    className="inline"
-    >
+      class="img-product"
+      width="300px"
+      height="300px"
+      mat-card-image
+      src="{{ productFound.images }}"
+      alt="{{ productFound.name }}"
+      className="inline"
+    />
   </div>
 
-
-
-  <mat-card className="inline" >
-
+  <mat-card className="inline">
     <div class="content-card flex flex-column">
       <mat-card-content>
-        <mat-card-title>Nombre:{{ productFound.name | titlecase }}</mat-card-title>
-        <mat-card-subtitle>Presentacion:{{ productFound.presentation | titlecase }}</mat-card-subtitle>
-
+        <mat-card-title
+          >Nombre:{{ productFound.name | titlecase }}</mat-card-title
+        >
+        <mat-card-subtitle
+          >Presentacion:{{
+            productFound.presentation | titlecase
+          }}</mat-card-subtitle
+        >
       </mat-card-content>
       <mat-card-content>
-        <h1>Precio:{{ productFound.pricePublished?.priceBase?.amount| number:"1.2-2" }}</h1>
+        <h1>
+          Precio:{{
+            productFound.pricePublished?.priceBase?.amount | number : "1.2-2"
+          }}
+        </h1>
         <h3></h3>
       </mat-card-content>
-       <!-- <mat-card-footer>
+      <!-- <mat-card-footer>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </mat-card-footer> -->
     </div>
-
   </mat-card>
-
-
 </div>
-
-
-
 
 <!--  7598001001018  -->
 <!-- 7898247780075 -->

@@ -12,11 +12,18 @@
       <div class="container-searchbox">
         <!-- buscador -->
 
-        <app-search-box></app-search-box>
+        <app-search-box ></app-search-box>
       </div>
       <div class="container--productsCard">
         <!-- products card -->
-        <app-product-card (newProduct)="newProduct($event)"></app-product-card>
+        
+        <ng-template   #sinBusqueda>
+          <div> Realiza la busqueda de tu producto aqui </div>
+        </ng-template>
+
+
+
+        <app-product-card *ngIf="mostrarComponente; else sinBusqueda " (newProduct)="newProduct($event)"></app-product-card>
       </div>
     </div>
 

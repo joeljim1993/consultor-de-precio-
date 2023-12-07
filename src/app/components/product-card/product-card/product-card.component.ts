@@ -22,7 +22,7 @@ export class ProductCardComponent implements OnInit {
 
 
     // this.kanaService.productFound = this.productFound;
-    this.kanaService.productFound
+    this.kanaService.productFound$
     .pipe(
       tap(info => console.log("lo que llega antes de actualizar",info)
       ),

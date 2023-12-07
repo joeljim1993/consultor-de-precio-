@@ -21,7 +21,7 @@ export class KanaService {
   // productos traidos de kana directamente
   public productsKana = new BehaviorSubject<any>('sin datos');
   // producto resultado de la busqueda
-  public productFound = new BehaviorSubject<any>("0")
+  public productFound$ = new BehaviorSubject<any>("0")
 
   public lastSearchedProducts$ = new BehaviorSubject<any>("sin productos ")
 
@@ -131,7 +131,7 @@ export class KanaService {
 
    let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
     console.log("foundProduct",foundProduct);
-    this.productFound.next(foundProduct[0]);
+    this.productFound$.next(foundProduct[0]);
     this.verifyLastSearched( foundProduct[0] );
 
     return foundProduct;

@@ -10,7 +10,7 @@ import { Product } from './interfaces/productForKana.interface';
 export class AppComponent {
 
   public kanaService = inject( KanaService )
-
+  public mostrarComponente= true;
 
   //TODO: esto lo dejaria despejado
 

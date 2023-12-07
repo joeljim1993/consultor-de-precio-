@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {  Component} from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +9,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
-export class NavbarComponent {
+export class NavbarComponent  {
 
   public textNavbar:string= "Consultor de Precio "
+
+
 
  }

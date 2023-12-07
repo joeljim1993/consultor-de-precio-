@@ -2,8 +2,8 @@ import { EventEmitter, Injectable, Output, Pipe } from '@angular/core';
 import { of, Observable, BehaviorSubject, tap, mergeMap, map } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 import { Product } from '../interfaces/productForKana.interface';
-import { Data, Edge } from '../interfaces/kana-service.interface';
-
+import { Data, Edge, CurrentPriceList } from '../interfaces/kana-service.interface';
+import { Response} from '../interfaces/dollar-value.interface'
 @Injectable({
   providedIn: 'root',
 })
@@ -25,6 +25,8 @@ export class KanaService {
 
   public lastSearchedProducts$ = new BehaviorSubject<any>("sin productos ")
 
+  public priceDivisa$= new BehaviorSubject<number>(0)
+
   constructor() {
 
 
@@ -35,6 +37,16 @@ export class KanaService {
     this.productsKana
       // .pipe(tap((products: any) => console.log('products en el behavior', products)))
       .subscribe();
+
+      this.getDolarValue$()
+      .pipe(
+        tap( price => this.priceDivisa$.next(price) ),
+
+      )
+      .subscribe()
+
+
+
   }
 
   getQuery(query: string) {
@@ -58,7 +70,7 @@ export class KanaService {
     return data$;
   }
 
-  getListProductFromKana$(limit: number = 200) {
+  getListProductFromKana$(limit: number = 200):Observable<void> {
     const query = `
     query {
       currentPriceList{
@@ -142,6 +154,35 @@ export class KanaService {
     this.lastSearchedProducts$.next( this.lastSearchedProducts  );
     console.log(" this.lastSearchedProducts en el servicio",this.lastSearchedProducts);
 
+  }
+
+  getDolarValue$(): Observable<number> {
+    const query = `
+      query{
+        currentPriceList{
+          officialRate{
+            forSales{
+              value
+            }
+          }
+        }
+      }`;
+
+    const data$: Observable<number> = this.getQuery(query).pipe(
+      map((response: any) => {
+        const {
+          data: {
+            currentPriceList: {
+              officialRate: { forSales },
+            },
+          },
+        } = response;
+        return forSales[1].value;
+      }),
+
+    );
+
+    return data$;
   }
 
 

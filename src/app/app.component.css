@@ -1,8 +1,22 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
+:host {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
  body{
   height: calc(100%-76px);
+
+ }
+ body::-webkit-scrollbar {
+  display: none;
  }
  .container {
     display: grid;
@@ -15,7 +29,7 @@
   }
 
   .container-searchbox{
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .container--productsCard{
@@ -33,5 +47,10 @@
     width: 300px;
     font-size: 40rem;
 
+  }
+  .footer{
+    background: #564a00;
+    width: 100%;
+    height: 20px;
   }
 

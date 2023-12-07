@@ -15,6 +15,7 @@ import { LastSearchedComponent } from './components/last-searched/last-searched.
 import { ProductCardComponent } from './components/product-card/product-card/product-card.component'
 import { SearchBoxComponent } from './components/search-box/search-box/search-box.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { PriceDollarComponent } from './components/price dollar/price dollar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MessagesModule,
     MatIconModule,
     MatProgressBarModule,
-    NavbarComponent
+    NavbarComponent,
+    PriceDollarComponent
 
 
   ],

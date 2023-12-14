@@ -25,8 +25,8 @@ export class SearchBoxComponent {
   constructor(private kanaservice: KanaService) {
     this.inputSearch.valueChanges.pipe(
       debounceTime(400),
-      tap(info => console.log("infooooo", info)
-      ),
+      // tap(info => console.log("infooooo", info)
+      // ),
       tap(barcodeSearch => {
         this.kanaservice.searchProduct(barcodeSearch);
 
@@ -42,14 +42,12 @@ export class SearchBoxComponent {
   searchProducts(): void {
 
     let barcodeSearch = this.txtInput.nativeElement.value;
-    console.log("buscando", barcodeSearch);
+    // console.log("buscando", barcodeSearch);
 
     let productFound: Product[] = this.kanaservice.searchProduct(barcodeSearch)
     // console.log("productfound*------", productFound);
     // this.newProduct.emit( productFound[0] )
     // se limpia el valor
-
-
     this.txtInput.nativeElement.value = "";
   }
 

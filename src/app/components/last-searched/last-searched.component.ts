@@ -17,10 +17,10 @@ export class LastSearchedComponent {
   constructor( private kanaservice:KanaService){
     this.kanaservice.lastSearchedProducts$.pipe(
 
-      tap(info => console.log("lo que llega a lastSearchedProducts$",info)),
+      // tap(info => console.log("lo que llega a lastSearchedProducts$",info)),
       tap(info => this.latestProductSearches = info ),
-      tap( ()=>console.log("ultimos productos en latestProductSearches.... ",this.latestProductSearches)
-        )
+      // tap( ()=>console.log("ultimos productos en latestProductSearches.... ",this.latestProductSearches)
+        // )
     )
     .subscribe();
 

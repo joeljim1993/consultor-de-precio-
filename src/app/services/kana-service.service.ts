@@ -31,7 +31,7 @@ export class KanaService {
 
 
     this.getListProductFromKana$()
-      .pipe(tap(() => console.log('products', this.listProducts)))
+      // .pipe(tap(() => console.log('products', this.listProducts)))
       .subscribe();
 
     this.productsKana
@@ -130,7 +130,7 @@ export class KanaService {
   searchProduct(barcode: string): Product[] {
 
    let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
-    console.log("foundProduct",foundProduct);
+    // console.log("foundProduct",foundProduct);
     this.productFound$.next(foundProduct[0]);
     this.verifyLastSearched( foundProduct[0] );
 
@@ -152,7 +152,7 @@ export class KanaService {
     }
     this.lastSearchedProducts.push( searchedProduct );
     this.lastSearchedProducts$.next( this.lastSearchedProducts  );
-    console.log(" this.lastSearchedProducts en el servicio",this.lastSearchedProducts);
+    // console.log(" this.lastSearchedProducts en el servicio",this.lastSearchedProducts);
 
   }
 

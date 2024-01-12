@@ -44,11 +44,14 @@
       </mat-card-content>
       <mat-card-content>
         <h1>
-          Precio:{{
-            productFound.pricePublished?.priceBase?.amount | number : "1.2-2"
-          }}
+           Precio:{{ priceProduct *dollarRate | number : "1.2-2"  }}
+
         </h1>
-        <h3></h3>
+        <h2>{{
+          productFound.pricePublished?.priceBase?.amount | number : "1.2-2"  | currency:'USD':"symbol-narrow"
+        }}
+        </h2>
+        
       </mat-card-content>
 
     </div>

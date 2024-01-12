@@ -15,6 +15,10 @@ export class ProductCardComponent implements OnInit {
 
   public messages:any;
   public productFound!:Product;
+  public priceProduct:number= 0;
+
+  public dollarRate:number = 35.96;
+
 
   constructor(
     private kanaService :KanaService,
@@ -27,7 +31,13 @@ export class ProductCardComponent implements OnInit {
       // tap(info => console.log("lo que llega antes de actualizar",info)),
       tap(product =>{
         this.productFound = product;
-        // console.log(" this.productFound", this.productFound);
+        if(!this.productFound){
+          return;
+        }
+        let pricePublished = product.pricePublished?.priceBase.amount;
+        this.priceProduct=+pricePublished ;
+        console.log(" this.productFound", product.pricePublished?.priceBase.amount);
+        console.log("priceProduct",this.priceProduct);
 
       } ),
 

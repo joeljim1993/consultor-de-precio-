@@ -3,6 +3,15 @@ import { KanaService } from './services/kana-service.service';
 import { Product } from './interfaces/productForKana.interface';
 import { debounceTime, tap, timer } from 'rxjs';
 
+import { registerLocaleData } from '@angular/common';
+
+// manera como se importa los locales
+import localesEsVE from '@angular/common/locales/es-VE'
+
+// se llama para poder registrar todos los locales
+registerLocaleData( localesEsVE);
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

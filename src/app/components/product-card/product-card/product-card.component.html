@@ -9,7 +9,7 @@
 
 <div class="grid col-12 mr-4 ml-4" class="container" *ngIf="productFound; else sinCoincidencias">
   <div class="container-image">
-    <img class="img-product" width="300px" height="300px" mat-card-image src="{{ productFound.images }}"
+    <img class="img-product"  mat-card-image src="{{ productFound.images }}"
       alt="{{ productFound.name }}" className="inline" />
   </div>
 
@@ -26,15 +26,18 @@
         </mat-card-subtitle>
       </mat-card-content>
       <mat-card-content class="container-price">
+        <mat-card-subtitle>
+          Precio:
+        </mat-card-subtitle>
         <h1 class="price-bolivar">
-          Precio: {{ priceProduct *dollarRate | number : "1.2-2" }}&nbsp;Bs.D
+           {{ priceProduct *dollarRate | number : "1.2-2" }}&nbsp;Bs.D
 
         </h1>
         <h2 class="container--price-dollar">
           <mat-card-subtitle class="price-dollar">
             {{
             productFound.pricePublished?.priceBase?.amount | number : "1.2-2" | currency:'USD':"symbol-narrow"
-            }}
+            }}$
             </mat-card-subtitle>
 
         </h2>
@@ -45,6 +48,4 @@
   </mat-card>
 </div>
 
-<!--  7598001001018  -->
-<!-- 7898247780075 -->
-<!--  9780201379624   -->
+

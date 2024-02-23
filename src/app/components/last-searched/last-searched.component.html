@@ -1,4 +1,4 @@
-<h1>Ultimos Precios Buscados</h1>
+<h1>Ultimos Productos Buscados</h1>
 
 <div class="container--product">
 
@@ -20,15 +20,26 @@
 
   <mat-card className="inline" >
 
-    <div class="content-card flex flex-column">
+    <div class="content-card flex flex-column ">
       <mat-card-content>
-        <mat-card-title>{{ product.name | titlecase }}</mat-card-title>
+        <mat-card-title class="product-title">{{ product.name | titlecase }}</mat-card-title>
         <!-- <mat-card-subtitle>{{ product.presentation | titlecase }}</mat-card-subtitle> -->
 
       </mat-card-content>
       <mat-card-content>
-        <h1>Precio:{{ product.pricePublished?.priceBase?.amount| number:"1.2-2" }}$</h1>
-        <h3></h3>
+        <!-- ToDo: producto real  -->
+        <!-- <h1>Precio:{{ product.pricePublished?.priceBase?.amount| number:"1.2-2" }}$</h1> -->
+        <!-- toDo:producto prueba -->
+        <div class="price-container">
+          <h6 class="price-container--bolivar">Precio: {{ product.pricePublished | number:"1.2-2" }} Bs.D</h6>
+          <div class="container--price--dollar">
+            <h6 class="price--dollar">{{ product.pricePublished | number:"1.2-2" }}$</h6>
+          </div>
+
+        </div>
+
+
+
       </mat-card-content>
       <!-- <mat-card-footer>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>

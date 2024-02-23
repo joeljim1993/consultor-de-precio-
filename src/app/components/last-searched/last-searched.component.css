@@ -1,3 +1,20 @@
+/* resetea todos los valores por defecto del navegador */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* permite usar el rem como si fuera pixeles */
+
+html {
+  font-size: 62.5%;
+  font-family: "DM Sans",sans-serif;
+}
+
+
+
+
+
 .container--product{
   display: grid;
 }
@@ -5,6 +22,8 @@
 .container{
   grid-template-columns: 1fr 1fr 1fr;
 }
+
+
 
 .container-image{
 
@@ -18,4 +37,36 @@
 }
 .img-product{
   display: flex;
+}
+
+.product-title{
+  font-size: 1.3rem;
+}
+
+.price-container{
+  display: flex;
+  margin-top: 5px;
+
+}
+
+.price-container--title{
+  font-size: 1.4rem;
+}
+
+.price-container--bolivar{
+  font-size: 1.4rem;
+  margin-left: 10px;
+  font-weight: 400;
+}
+/* container precio del dollar */
+
+.container--price--dollar{
+  
+}
+.price--dollar{
+  display: flex;
+  font-size: 1.1rem;
+  margin-left: 12px;
+  font-weight: 400;
+
 }

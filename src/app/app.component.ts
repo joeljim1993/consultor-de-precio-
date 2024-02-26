@@ -37,7 +37,7 @@ ngOnInit(): void {
           this.showComponent= true ;
         }
       } ),
-      debounceTime(5000),
+      debounceTime(4000),
       tap(()=> this.showComponent = false)
 
     )

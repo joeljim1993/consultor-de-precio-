@@ -12,6 +12,9 @@
 }
 .img-product{
   display: flex;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
 }
 
 .template-not-found{
@@ -31,4 +34,28 @@ text--template-not-found{
 }
 .card{
   width: 80%;
+}
+.title-product{
+  margin-left: 20px;
+  font-size: 2.3rem;
+  margin-bottom: 13px;
+}
+
+mat-card-content{
+  margin-left: 10%;
+}
+.container-price{
+display: flex;
+flex-direction: row;
+
+}
+
+
+.container--price-dollar{
+  margin-left: 15px;
+
+
+}
+.price-dollar{
+  font-size: 1.3rem;
 }

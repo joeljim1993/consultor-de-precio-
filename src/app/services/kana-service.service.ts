@@ -31,11 +31,11 @@ export class KanaService {
 
 
     this.getListProductFromKana$()
-      // .pipe(tap(() => console.log('products', this.listProducts)))
+      .pipe(tap(() => console.log('products', this.listProducts)))
       .subscribe();
 
     this.productsKana
-      // .pipe(tap((products: any) => console.log('products en el behavior', products)))
+      .pipe(tap((products: any) => console.log('products en el behavior', products)))
       .subscribe();
 
       this.getDolarValue$()
@@ -70,7 +70,7 @@ export class KanaService {
     return data$;
   }
 
-  getListProductFromKana$(limit: number = 200):Observable<void> {
+  getListProductFromKana$(limit: number = 1000):Observable<void> {
     const query = `
     query {
       currentPriceList{
@@ -152,7 +152,7 @@ export class KanaService {
     }
     this.lastSearchedProducts.push( searchedProduct );
     this.lastSearchedProducts$.next( this.lastSearchedProducts  );
-    // console.log(" this.lastSearchedProducts en el servicio",this.lastSearchedProducts);
+    console.log(" this.lastSearchedProducts en el servicio",this.lastSearchedProducts);
 
   }
 

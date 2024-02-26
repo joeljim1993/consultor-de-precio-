@@ -29,6 +29,10 @@
 
   }
 
+  app-search-box{
+    margin-bottom: 50px;
+  }
+
   .container-searchbox{
     margin-top: 10px;
   }

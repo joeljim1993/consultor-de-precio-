@@ -1,26 +1,29 @@
 .container {
   display: flex;
-
-  width: 92%;
   justify-content: flex-end;
-  height: 40px;
   margin-top: 5px;
+  width: 92%;
+  height: 45px;
 }
 
 .container-dollar {
+  width: 180px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f5d9a3;
-  border-radius: 15%;
-  width: 140px;
-  height: auto;
+
+  border-radius: 10px 10px 0 0 ;
+
+
+  background-color: #Ff4900;
+
 }
 
 .price-dollar {
   font-size: 1.1rem;
   font-family: 'Poppins', sans-serif;
-  font-weight: 540;
-
+  font-weight: 600;
+  color: aliceblue;
 }

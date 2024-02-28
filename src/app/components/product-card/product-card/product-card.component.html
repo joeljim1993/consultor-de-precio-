@@ -9,36 +9,42 @@
 
 <div class="grid col-12 mr-4 ml-4" class="container" *ngIf="productFound; else sinCoincidencias">
   <div class="container-image">
-    <img class="img-product"  mat-card-image src="{{ productFound.images }}"
-      alt="{{ productFound.name }}" className="inline" />
+    <img class="img-product" mat-card-image src="{{ productFound.images }}" alt="{{ productFound.name }}"
+      className="inline" />
   </div>
 
   <mat-card className="inline">
     <div class="content-card flex flex-column">
-      <mat-card-content >
+      <mat-card-content>
         <mat-card-title class="title-product">
           {{ productFound.name | titlecase }}
         </mat-card-title>
+
         <mat-card-subtitle class="product-presentation">
           Presentacion:{{
           productFound.presentation | titlecase
           }}
         </mat-card-subtitle>
       </mat-card-content>
+
       <mat-card-content class="container-price">
-        <mat-card-subtitle>
+
+        <mat-card-subtitle class="container-price--title-price">
           Precio:
         </mat-card-subtitle>
-        <h1 class="price-bolivar">
-           {{ priceProduct *dollarRate | number : "1.2-2" }}&nbsp;Bs.D
 
+        <h1 class="price-bolivar">
+          <!-- todo:cambiando en el css -->
+          <!-- {{ priceProduct *dollarRate | number : "1.2-2" }}&nbsp;Bs.D -->
+          26.35 bsD
         </h1>
+
         <h2 class="container--price-dollar">
           <mat-card-subtitle class="price-dollar">
             {{
             productFound.pricePublished?.priceBase?.amount | number : "1.2-2" | currency:'USD':"symbol-narrow"
-            }}$
-            </mat-card-subtitle>
+            }}
+          </mat-card-subtitle>
 
         </h2>
 
@@ -47,5 +53,3 @@
     </div>
   </mat-card>
 </div>
-
-

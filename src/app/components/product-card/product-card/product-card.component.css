@@ -44,12 +44,40 @@ text--template-not-found{
 mat-card-content{
   margin-left: 10%;
 }
+
+/* precios */
 .container-price{
 display: flex;
 flex-direction: row;
-
+margin-left: 10%;
+margin-top: 3px;
 }
 
+
+.container-price--title-price{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+  font-size: 1.4rem;
+}
+.product-presentation{
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom:2px;
+}
+.price-bolivar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+  margin-right: 5px;
+  font-size: 2rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+
+}
 
 .container--price-dollar{
   margin-left: 15px;
@@ -57,5 +85,5 @@ flex-direction: row;
 
 }
 .price-dollar{
-  font-size: 1.3rem;
+  font-size: 1.7rem;
 }

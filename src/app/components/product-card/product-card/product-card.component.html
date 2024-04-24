@@ -1,13 +1,17 @@
 <ng-template #sinCoincidencias class="template-not-found">
+
   <div class="text--template-not-found">
+
     <div class="card">
       <p-messages [(value)]="messages" [enableService]="true" [closable]="true"></p-messages>
     </div>
   </div>
+
 </ng-template>
 
 
 <div class="grid col-12 mr-4 ml-4" class="container" *ngIf="productFound; else sinCoincidencias">
+
   <div class="container-image">
     <img class="img-product" mat-card-image src="{{ productFound.images }}" alt="{{ productFound.name }}"
       className="inline" />

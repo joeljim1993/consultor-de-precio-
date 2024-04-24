@@ -15,6 +15,4 @@ export class NavbarComponent  {
 
   public textNavbar:string= "Consultor de Precio "
 
-
-
  }

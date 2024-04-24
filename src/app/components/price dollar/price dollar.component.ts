@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, type OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, type OnInit } from '@angular/core';
 import { tap } from 'rxjs';
 import { KanaService } from 'src/app/services/kana-service.service';
 
@@ -16,9 +16,10 @@ import { KanaService } from 'src/app/services/kana-service.service';
 export class PriceDollarComponent implements OnInit {
 
   public priceDollar:number=0;
+  private kanaService= inject( KanaService );
 
   constructor(
-    private kanaService:KanaService,
+
     private changeDetector: ChangeDetectorRef){}
 
 ngOnInit(): void {
@@ -28,7 +29,6 @@ ngOnInit(): void {
       tap(price => {
         this.updatePriceDollar(price);
         this.changeDetector.detectChanges();
-
       }),
 
     ).subscribe();

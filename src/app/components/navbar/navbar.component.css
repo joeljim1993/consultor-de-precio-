@@ -1,35 +1,36 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-html{
+
+html {
   font-size: 62.5%;
-  font-family: "DM Sans",sans-serif ;
+  font-family: "DM Sans", sans-serif;
 }
 
-h1{
+h1 {
   font-size: 36px;
   text-align: center;
 }
 
-.navbar{
+.navbar {
   display: flex;
   /* display: grid; */
   /* grid-template-columns: 20% 80%; */
-  background: #F3A100 ;
+  background: #F3A100;
   width: 100%;
 }
 
 
-.navbar--img{
+.navbar--img {
   width: 120px;
   padding: 2px 2px 2px 2px;
-  margin-left:60px ;
+  margin-left: 60px;
   margin-right: 10px;
 }
 
-.navbar-container--text{
+.navbar-container--text {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,17 +38,9 @@ h1{
   width: 400px;
 }
 
-/* .navbar--text{
-  font-size: ;
-} */
-/*
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width: 300px;
+
 */
-.text{
+.text {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   color: white;

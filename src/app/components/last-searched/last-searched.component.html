@@ -3,59 +3,51 @@
 <div class="container--product">
 
   <div class="container grid-nogutter "
- *ngFor="let product of latestProductSearches.slice(-3) "  >
-
-  <div class="container-image">
-
-    <img
-    class="img-product"
-    width="100px"
-    height="100px"
-    mat-card-image
-    src={{product.images}}
-    alt={{product.name}}
-    className="inline"
-    >
-  </div>
-
-  <mat-card className="inline" >
-
-    <div class="content-card flex flex-column product-name-card-content ">
-      <mat-card-content>
-        <mat-card-title class="product-title">{{ product.name | titlecase }}</mat-card-title>
-        <!-- <mat-card-subtitle>{{ product.presentation | titlecase }}</mat-card-subtitle> -->
-
-      </mat-card-content>
-
-      <mat-card-content>
-        <!-- ToDo: producto real  -->
-        <!-- <h1>Precio:{{ product.pricePublished?.priceBase?.amount| number:"1.2-2" }}$</h1> -->
-        <!-- toDo:producto prueba -->
-
-        <div class="price-container">
-
-          <h6 class="price-container--title">Precio:</h6><h6 class="price-container--bolivar"> {{ product.pricePublished | number:"1.2-2" }} Bs.D</h6>
-          <div class="container--price--dollar">
-            <h6 class="price--dollar">{{ product.pricePublished | number:"1.2-2" }}$</h6>
-          </div>
-
-        </div>
+      *ngFor="let product of latestProductSearches.slice(-3) ">
 
 
-
-      </mat-card-content>
-      <!-- <mat-card-footer>
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-      </mat-card-footer> -->
+    <div class="container-image">
+      <img class="img-product" width="100px" height="100px" mat-card-image src={{product.images}} alt={{product.name}}
+        className="inline">
     </div>
 
-  </mat-card>
+    <mat-card className="inline">
 
+      <div class="content-card flex flex-column product-name-card-content ">
+        <mat-card-content>
+          <mat-card-title class="product-title">{{ product.name | titlecase }}</mat-card-title>
+
+        </mat-card-content>
+
+        <mat-card-content>
+
+
+          <div class="price-container">
+
+            <h6 class="price-container--title">Precio:</h6>
+
+            <h6 class="price-container--bolivar">
+              {{product.pricePublished?.priceBase?.amount* dollarValue | number:"1.2-2" }} Bs.D</h6>
+
+            <div class="container--price--dollar">
+              <h6 class="price--dollar">{{ product.pricePublished?.priceBase?.amount | number:"1.2-2" }}$</h6>
+            </div>
+
+          </div>
+
+
+
+        </mat-card-content>
+
+      </div>
+
+    </mat-card>
+
+
+  </div>
 
 </div>
 
-</div>
-<!-- ... -->
 
 
 <!--

@@ -1,72 +1,67 @@
-
-
-.container-image{
-
+.container-image {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
   min-width: 300px;
   min-height: 300px;
-
 }
-.img-product{
+.img-product {
   display: flex;
   width: 300px;
   height: 300px;
   object-fit: cover;
 }
 
-.template-not-found{
+.template-not-found {
   display: flex;
 }
 
-text--template-not-found{
+text--template-not-found {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.text--template-not-found{
+.text--template-not-found {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.card{
+.card {
   width: 80%;
 }
-.title-product{
+.title-product {
   margin-left: 20px;
   font-size: 2.3rem;
   margin-bottom: 13px;
 }
 
-mat-card-content{
+mat-card-content {
   margin-left: 10%;
 }
 
 /* precios */
-.container-price{
-display: flex;
-flex-direction: row;
-margin-left: 10%;
-margin-top: 3px;
+.container-price {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10%;
+  margin-top: 3px;
 }
 
-
-.container-price--title-price{
+.container-price--title-price {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 5px;
   font-size: 1.4rem;
 }
-.product-presentation{
+.product-presentation {
   font-size: 1.3rem;
   font-weight: 400;
-  margin-bottom:2px;
+  margin-bottom: 2px;
 }
-.price-bolivar{
+.price-bolivar {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,14 +71,11 @@ margin-top: 3px;
   font-size: 2rem;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-
 }
 
-.container--price-dollar{
+.container--price-dollar {
   margin-left: 15px;
-
-
 }
-.price-dollar{
+.price-dollar {
   font-size: 1.7rem;
 }

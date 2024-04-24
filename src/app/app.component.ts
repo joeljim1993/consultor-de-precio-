@@ -20,7 +20,7 @@ registerLocaleData( localesEsVE);
 export class AppComponent implements OnInit{
 
   public kanaService = inject( KanaService )
-  public showComponent= true;
+  public showComponent= false;
 
   // producto creado para el css de la card
 
@@ -42,8 +42,8 @@ ngOnInit(): void {
           this.showComponent= true ;
         }
       } ),
-      // debounceTime(7000),
-      // tap(()=> this.showComponent = false)
+      debounceTime(12000),
+      tap(()=> this.showComponent = false)
 
     )
     .subscribe();

@@ -3,7 +3,6 @@ import { of, Observable, BehaviorSubject, tap, mergeMap, map } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 import { Product } from '../interfaces/productForKana.interface';
 import { Data, Edge, CurrentPriceList } from '../interfaces/kana-service.interface';
-import { Response} from '../interfaces/dollar-value.interface'
 @Injectable({
   providedIn: 'root',
 })
@@ -21,36 +20,27 @@ export class KanaService {
   // productos traidos de kana directamente
   public productsKana = new BehaviorSubject<any>('sin datos');
   // producto resultado de la busqueda
-  public productFound$ = new BehaviorSubject<any>("0")
+  public productFound$ = new BehaviorSubject<any>("0");
 
-  public lastSearchedProducts$ = new BehaviorSubject<any>("sin productos ")
+  public lastSearchedProducts$ = new BehaviorSubject<any>("sin productos");
 
-  public priceDivisa$= new BehaviorSubject<number>(0)
+  public priceDivisa$= new BehaviorSubject<number>(0);
+
 
   constructor() {
 
-
     this.getListProductFromKana$()
-      .pipe(tap(() => console.log('products', this.listProducts)))
-      .subscribe();
-
-    this.productsKana
-      .pipe(tap((products: any) => console.log('products en el behavior', products)))
       .subscribe();
 
       this.getDolarValue$()
       .pipe(
-        tap( price => this.priceDivisa$.next(price) ),
-
-      )
-      .subscribe()
-
-
-
+        tap( price => this.priceDivisa$.next(price) ), )
+      .subscribe();
   }
 
   getQuery(query: string) {
     const url = 'https://kana.develop.cecosesola.imolko.net/graphql';
+
     const dataQuery = {
       operationName: null,
       variables: {},
@@ -64,11 +54,13 @@ export class KanaService {
       body: JSON.stringify(payload),
       headers: new Headers({ 'content-type': 'application/json' }),
     };
-
+    // TODO: SE PUDIERA MANEJAR CON HTTP-CLIENT
     const data$ = fromFetch(url, option).pipe(mergeMap((resp: any) => resp.json()));
 
     return data$;
   }
+
+  // todo: que pasa si el limit aumenta> limit
 
   getListProductFromKana$(limit: number = 1000):Observable<void> {
     const query = `
@@ -130,7 +122,6 @@ export class KanaService {
   searchProduct(barcode: string): Product[] {
 
    let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
-    // console.log("foundProduct",foundProduct);
     this.productFound$.next(foundProduct[0]);
     this.verifyLastSearched( foundProduct[0] );
 
@@ -152,7 +143,6 @@ export class KanaService {
     }
     this.lastSearchedProducts.push( searchedProduct );
     this.lastSearchedProducts$.next( this.lastSearchedProducts  );
-    console.log(" this.lastSearchedProducts en el servicio",this.lastSearchedProducts);
 
   }
 
@@ -177,7 +167,8 @@ export class KanaService {
             },
           },
         } = response;
-        return forSales[1].value;
+        let priceDollar:number = +forSales[1].value;
+        return priceDollar;
       }),
 
     );
@@ -187,6 +178,7 @@ export class KanaService {
 
 
 }
+
 
 
 /*

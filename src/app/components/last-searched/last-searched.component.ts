@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { tap } from 'rxjs';
 import { Product } from 'src/app/interfaces/kana-service.interface';
 import { KanaService } from 'src/app/services/kana-service.service';
@@ -15,9 +15,9 @@ export class LastSearchedComponent {
 
   public dollarValue: number = 0;
 
+  private kanaservice= inject( KanaService );
 
-
-  constructor(private kanaservice: KanaService) {
+  constructor() {
 
     this.kanaservice.lastSearchedProducts$.pipe(
 

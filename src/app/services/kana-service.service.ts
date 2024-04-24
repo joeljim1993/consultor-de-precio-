@@ -3,13 +3,13 @@ import { of, Observable, BehaviorSubject, tap, mergeMap, map } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 import { Product } from '../interfaces/productForKana.interface';
 import { Data, Edge, CurrentPriceList } from '../interfaces/kana-service.interface';
+
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class KanaService {
-
-
-
 
   // arreglo que guarda los pdoructos buscados
   public lastSearchedProducts: Product[] = [];
@@ -18,10 +18,13 @@ export class KanaService {
   public listProducts: Product[] = [];
 
   // productos traidos de kana directamente
+  // Todo: colocar tipo de dato y se puede usar signal
   public productsKana = new BehaviorSubject<any>('sin datos');
   // producto resultado de la busqueda
+  // Todo: colocar tipo de dato y se puede usar signal
   public productFound$ = new BehaviorSubject<any>("0");
 
+  // Todo: colocar tipo de dato y se puede usar signal
   public lastSearchedProducts$ = new BehaviorSubject<any>("sin productos");
 
   public priceDivisa$= new BehaviorSubject<number>(0);
@@ -55,7 +58,9 @@ export class KanaService {
       headers: new Headers({ 'content-type': 'application/json' }),
     };
     // TODO: SE PUDIERA MANEJAR CON HTTP-CLIENT
-    const data$ = fromFetch(url, option).pipe(mergeMap((resp: any) => resp.json()));
+    const data$ = fromFetch(url, option)
+      .pipe(
+        mergeMap((resp: any) => resp.json()));
 
     return data$;
   }
@@ -95,7 +100,7 @@ export class KanaService {
         }
       }
     }`;
-
+    // todo: como se mejora la legibilidad del codigo
     const data$ = this.getQuery(query).pipe(
       tap((data:any) => console.log('data', data)),
       map(
@@ -108,8 +113,8 @@ export class KanaService {
         }) => {
           edges.map((edge:Edge) => {
             let productsKana:Product = edge.node.product;
-            this.listProducts.push(productsKana);
-            this.productsKana.next(this.listProducts);
+            this.listProducts.push( productsKana );
+            this.productsKana.next( this.listProducts );
           });
         }
       )
@@ -121,12 +126,13 @@ export class KanaService {
 
   searchProduct(barcode: string): Product[] {
 
-   let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
+    let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
     this.productFound$.next(foundProduct[0]);
     this.verifyLastSearched( foundProduct[0] );
 
     return foundProduct;
   }
+
 
   verifyLastSearched(searchedProduct:Product):void{
 

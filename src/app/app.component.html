@@ -18,10 +18,26 @@
         <!-- products card -->
 
         <ng-template   #withoutSearch>
-          <div class="container-without-search">
-            <h1>Consulta el precio de tu producto aqui </h1>
-            <img style="width: 60px;height: 60px;" src="../assets/icono-buscar.png">
+
+          <div class="container--text-consult flex justify-content-center align-content-center">
+
+            <div class="container-without-search">
+              <h1>Consulta el precio de tu producto aqui </h1>
+              <img style="width: 60px;height: 60px;" src="../assets/icono-buscar.png">
+
+            </div>
+
+            <div class="container--text-consult-video">
+
+              <!-- todo: el video debe estar cargado en una nube  -->
+              <video  width="640" height="360" autoplay>
+                <source src="../assets/CECOSESOLA ORGULLO DE VENEZUELA.mp4" type="video/mp4">
+
+                <!-- Texto alternativo -->
+              </video>
+            </div>
           </div>
+
         </ng-template>
 
 

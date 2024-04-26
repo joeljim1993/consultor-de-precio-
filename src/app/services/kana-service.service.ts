@@ -8,9 +8,7 @@ import {  Edge } from '../interfaces/kana-service.interface';
 })
 export class KanaService {
 
-
-
-  // arreglo que guarda los pdoructos buscados
+  // arreglo que guarda los productos buscados
   public lastSearchedProducts: Product[] = [];
 
   // lista de productos temporales
@@ -118,8 +116,6 @@ export class KanaService {
   searchProduct(barcode: string): Product[] {
 
     let foundProduct:Product[] = this.productsList.filter(products => products.barcode === barcode);
-    
-    
     this.productFound$.next(foundProduct[0]);
     this.verifyLastSearched( foundProduct[0] );
     return foundProduct;

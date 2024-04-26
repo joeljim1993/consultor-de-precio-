@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { KanaService } from './services/kana-service.service';
-import { Product } from './interfaces/productForKana.interface';
+import { Product } from './interfaces/index';
 import { debounceTime, tap, timer } from 'rxjs';
 
 import { registerLocaleData } from '@angular/common';

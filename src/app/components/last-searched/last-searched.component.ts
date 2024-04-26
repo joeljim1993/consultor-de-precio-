@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { tap } from 'rxjs';
 import { Product } from 'src/app/interfaces/kana-service.interface';
 import { KanaService } from 'src/app/services/kana-service.service';
-import { PricePublished } from '../../interfaces/productForKana.interface';
 
 @Component({
   selector: 'app-last-searched',
@@ -11,7 +10,7 @@ import { PricePublished } from '../../interfaces/productForKana.interface';
 })
 export class LastSearchedComponent {
 
-  public latestProductSearches: any;
+  public latestProductSearches:any =[];
 
   public dollarValue: number = 0;
 

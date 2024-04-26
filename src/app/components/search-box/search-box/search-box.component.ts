@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, tap } from 'rxjs';
-import { Product } from 'src/app/interfaces/productForKana.interface';
+import { Product } from 'src/app/interfaces/index';
 import { KanaService } from 'src/app/services/kana-service.service';
 
 @Component({

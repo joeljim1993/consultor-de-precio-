@@ -1,8 +1,8 @@
-import { EventEmitter, Injectable, Output, Pipe } from '@angular/core';
-import { of, Observable, BehaviorSubject, tap, mergeMap, map } from 'rxjs';
+import {  Injectable } from '@angular/core';
+import { of, Observable, BehaviorSubject, tap, mergeMap, map, Subject } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
-import { Product } from '../interfaces/productForKana.interface';
-import { Data, Edge, CurrentPriceList } from '../interfaces/kana-service.interface';
+import { Product } from '../interfaces/kana-service.interface';
+import {  Edge } from '../interfaces/kana-service.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -10,37 +10,42 @@ export class KanaService {
 
 
 
-
   // arreglo que guarda los pdoructos buscados
   public lastSearchedProducts: Product[] = [];
 
   // lista de productos temporales
-  public listProducts: Product[] = [];
+  public productsList: Product[] = [];
 
-  // productos traidos de kana directamente
-  public productsKana = new BehaviorSubject<any>('sin datos');
+  //TODO:si la lista es null, se deberia mostrar un loading
+  public listProductsOfKana    = new BehaviorSubject<Product[]|null>(null);
+
   // producto resultado de la busqueda
-  public productFound$ = new BehaviorSubject<any>("0");
-
-  public lastSearchedProducts$ = new BehaviorSubject<any>("sin productos");
-
-  public priceDivisa$= new BehaviorSubject<number>(0);
-
+  public productFound$         = new BehaviorSubject<any>("0");
+  public lastSearchedProducts$ = new Subject<Product[]>();
+  
+  // precio de la divisa del dia 
+  public priceDivisa$          = new BehaviorSubject<number>(0);
 
   constructor() {
 
     this.getListProductFromKana$()
       .subscribe();
 
+    this.listProductsOfKana
+      .subscribe();
+
       this.getDolarValue$()
       .pipe(
-        tap( price => this.priceDivisa$.next(price) ), )
-      .subscribe();
+        tap( price => this.priceDivisa$.next(price) ),
+
+      )
+      .subscribe()
+
   }
+
 
   getQuery(query: string) {
     const url = 'https://kana.develop.cecosesola.imolko.net/graphql';
-
     const dataQuery = {
       operationName: null,
       variables: {},
@@ -54,15 +59,13 @@ export class KanaService {
       body: JSON.stringify(payload),
       headers: new Headers({ 'content-type': 'application/json' }),
     };
-    // TODO: SE PUDIERA MANEJAR CON HTTP-CLIENT
+
     const data$ = fromFetch(url, option).pipe(mergeMap((resp: any) => resp.json()));
 
     return data$;
   }
 
-  // todo: que pasa si el limit aumenta> limit
-
-  getListProductFromKana$(limit: number = 1000):Observable<void> {
+  getListProductFromKana$(limit: number = 1000):Observable<any> {
     const query = `
     query {
       currentPriceList{
@@ -99,52 +102,52 @@ export class KanaService {
     const data$ = this.getQuery(query).pipe(
       tap((data:any) => console.log('data', data)),
       map(
-        ({
-          data: {
-            currentPriceList: {
-              products: { edges },
-            },
-          },
-        }) => {
+        ({data: {currentPriceList: { products: { edges }, },},}) => {
           edges.map((edge:Edge) => {
+
             let productsKana:Product = edge.node.product;
-            this.listProducts.push(productsKana);
-            this.productsKana.next(this.listProducts);
+            this.productsList.push( productsKana );
+            this.listProductsOfKana.next( this.productsList );
           });
         }
       )
     );
     return data$;
-
-
   }
 
   searchProduct(barcode: string): Product[] {
 
-   let foundProduct:Product[] = this.listProducts.filter(products => products.barcode === barcode);
+    let foundProduct:Product[] = this.productsList.filter(products => products.barcode === barcode);
+    
+    
     this.productFound$.next(foundProduct[0]);
     this.verifyLastSearched( foundProduct[0] );
-
     return foundProduct;
+
   }
 
-  verifyLastSearched(searchedProduct:Product):void{
 
-    if( searchedProduct == undefined) return ;
+  verifyLastSearched( searchedProduct:Product):void{
 
-    let indexProduct = this.lastSearchedProducts.findIndex(product => product.id === searchedProduct.id );
-    if( indexProduct !== -1 ){
-      // si el producto existe , lo elimina
-      this.lastSearchedProducts.splice(indexProduct,1 );
-      // el producto se agrega a la lista de ultimos buscados
-      this.lastSearchedProducts.push( searchedProduct );
-      this.lastSearchedProducts$.next( this.lastSearchedProducts  );
-      return;
-    }
+    if( searchedProduct == undefined ) return ;
+    // si la lista tiene el mismo producto , lo elimina 
+
+    this.deleteProductOfListByIndex( searchedProduct ,this.lastSearchedProducts);
     this.lastSearchedProducts.push( searchedProduct );
     this.lastSearchedProducts$.next( this.lastSearchedProducts  );
 
+  };
+
+  deleteProductOfListByIndex(product:any,listProduct:Product[] ):void{
+
+    let indexProduct = listProduct.findIndex( productOfList => productOfList.id == product.id );
+    if( indexProduct !== -1){
+    listProduct.splice( indexProduct,1);
+     return;
+    }
+    
   }
+
 
   getDolarValue$(): Observable<number> {
     const query = `
@@ -167,8 +170,7 @@ export class KanaService {
             },
           },
         } = response;
-        let priceDollar:number = +forSales[1].value;
-        return priceDollar;
+        return forSales[1].value;
       }),
 
     );
@@ -177,18 +179,13 @@ export class KanaService {
   }
 
 
+
 }
 
 
 
-/*
 
-7598001001018
-
-7592498220457
-
-5852868201212
-
-3800121400348
-
-*/
+7591082000307
+2525252525251
+7591082000307
+7592591000154

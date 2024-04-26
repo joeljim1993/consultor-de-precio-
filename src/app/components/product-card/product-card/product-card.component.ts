@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { KanaService } from '../../../services/kana-service.service';
 import { tap,  } from 'rxjs';
-import { Product } from 'src/app/interfaces/productForKana.interface';
+import { Product } from 'src/app/interfaces/index';
 
 @Component({
   selector: 'app-product-card',

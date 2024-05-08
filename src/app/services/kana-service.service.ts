@@ -55,15 +55,6 @@ export class KanaService {
       .subscribe();
 
 
-    this.verifyListProduct$()
-    .pipe(
-      tap( info => console.log("lista ", info )
-       )
-    )
-    .subscribe;
-
-
-
 
 
   }
@@ -220,11 +211,12 @@ export class KanaService {
 
   // todo:hacer la peticion de lista de precio y verificar
   verifyListProduct$():Observable<any> {
+    console.log("ejecutando funcion ");
 
     const query = `
     query {
       currentPriceList{
-        version
+          version
           createdAt
           createdBy{
           displayName
@@ -237,10 +229,7 @@ export class KanaService {
 
     const data$ = this.getQuery(query).pipe(
       tap((data:any) => console.log('data2222', data)),
-      tap( ({data:{currentPriceList}})=>{
 
-      return of(currentPriceList);
-      }),
     )
     return data$
 

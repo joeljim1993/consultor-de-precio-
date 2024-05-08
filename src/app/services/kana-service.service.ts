@@ -1,8 +1,9 @@
 import {  Injectable } from '@angular/core';
 import { of, Observable, BehaviorSubject, tap, mergeMap, map, Subject } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
-import { Product } from '../interfaces/kana-service.interface';
+import { Product, DataKana, CurrentPriceList, Products } from '../interfaces/kana-service.interface';
 import {  Edge } from '../interfaces/kana-service.interface';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,11 +21,16 @@ export class KanaService {
   // producto resultado de la busqueda
   public productFound$         = new BehaviorSubject<any>("0");
   public lastSearchedProducts$ = new Subject<Product[]>();
-  
-  // precio de la divisa del dia 
+
+  // precio de la divisa del dia
   public priceDivisa$          = new BehaviorSubject<number>(0);
 
+  private currentPriceList$ =new  Subject<CurrentPriceList>();
+
+  private numberList:number|null= null;
+
   constructor() {
+
 
     this.getListProductFromKana$()
       .subscribe();
@@ -37,7 +43,28 @@ export class KanaService {
         tap( price => this.priceDivisa$.next(price) ),
 
       )
-      .subscribe()
+      .subscribe();
+
+      this.currentPriceList$
+      .pipe(
+        map( currentList =>  currentList.version),
+        tap( currentListVersion => this.numberList = currentListVersion),
+        tap( ()=> console.log("version de la lista ",this.numberList)
+         )
+      )
+      .subscribe();
+
+
+    this.verifyListProduct$()
+    .pipe(
+      tap( info => console.log("lista ", info )
+       )
+    )
+    .subscribe;
+
+
+
+
 
   }
 
@@ -67,6 +94,13 @@ export class KanaService {
     const query = `
     query {
       currentPriceList{
+        version
+          createdAt
+          createdBy{
+          displayName
+
+          }
+
         products(first:${limit} ){
           edges{
             node{
@@ -99,8 +133,14 @@ export class KanaService {
 
     const data$ = this.getQuery(query).pipe(
       tap((data:any) => console.log('data', data)),
+      tap( ({data:{currentPriceList}})=>{
+
+      this.currentPriceList$.next(currentPriceList);
+
+
+      }),
       map(
-        ({data: {currentPriceList: { products: { edges }, },},}) => {
+        ({data: {currentPriceList:  {  products: { edges }, },},}) => {
           edges.map((edge:Edge) => {
 
             let productsKana:Product = edge.node.product;
@@ -126,7 +166,7 @@ export class KanaService {
   verifyLastSearched( searchedProduct:Product):void{
 
     if( searchedProduct == undefined ) return ;
-    // si la lista tiene el mismo producto , lo elimina 
+    // si la lista tiene el mismo producto , lo elimina
 
     this.deleteProductOfListByIndex( searchedProduct ,this.lastSearchedProducts);
     this.lastSearchedProducts.push( searchedProduct );
@@ -141,7 +181,7 @@ export class KanaService {
     listProduct.splice( indexProduct,1);
      return;
     }
-    
+
   }
 
 
@@ -172,6 +212,38 @@ export class KanaService {
     );
 
     return data$;
+  }
+  // todo: crear una funcion que verifique la lista , si es distinta , actualiza la lista
+  checkPriceList(){
+
+  }
+
+  // todo:hacer la peticion de lista de precio y verificar
+  verifyListProduct$():Observable<any> {
+
+    const query = `
+    query {
+      currentPriceList{
+        version
+          createdAt
+          createdBy{
+          displayName
+
+          }
+
+
+      }
+    }`;
+
+    const data$ = this.getQuery(query).pipe(
+      tap((data:any) => console.log('data2222', data)),
+      tap( ({data:{currentPriceList}})=>{
+
+      return of(currentPriceList);
+      }),
+    )
+    return data$
+
   }
 
 

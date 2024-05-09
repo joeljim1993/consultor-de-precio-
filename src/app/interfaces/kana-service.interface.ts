@@ -9,15 +9,14 @@ export interface CurrentPriceList {
   version:   number;
   createdAt: Date;
   createdBy: CreatedBy;
+  products: Products;
 }
 
 export interface CreatedBy {
   displayName: string;
 }
 
-export interface CurrentPriceList {
-  products: Products;
-}
+
 
 export interface Products {
   edges:    Edge[];

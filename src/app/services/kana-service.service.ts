@@ -1,5 +1,5 @@
 import {  Injectable } from '@angular/core';
-import { of, Observable, BehaviorSubject, tap, mergeMap, map, Subject } from 'rxjs';
+import { of, Observable, BehaviorSubject, tap, mergeMap, map, Subject,asyncScheduler } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 import { Product, DataKana, CurrentPriceList, Products } from '../interfaces/kana-service.interface';
 import {  Edge } from '../interfaces/kana-service.interface';
@@ -31,6 +31,7 @@ export class KanaService {
 
   constructor() {
 
+    this.prueba();
 
     this.getListProductFromKana$()
       .subscribe();
@@ -55,7 +56,7 @@ export class KanaService {
       .subscribe();
 
 
-
+      this.verifyListProduct$().subscribe();
 
   }
 
@@ -229,12 +230,38 @@ export class KanaService {
 
     const data$ = this.getQuery(query).pipe(
       tap((data:any) => console.log('data2222', data)),
+      map( ({data:{currentPriceList}})=>  currentPriceList.version  ),
+      tap( listVersion  =>{
+        if( listVersion == this.numberList )return;
+        console.log("se ejecuto la funcion ");
+
+        this.getListProductFromKana$();
+      }),
+
+
 
     )
     return data$
 
   }
 
+prueba(){
+
+const minute:number = 60*1000;
+// se puede usar una variable para almacenar el contexto this, ya que puede cambiar dependiendo del ambito
+const self = this;
+const subs = asyncScheduler.schedule( function(state=0){
+
+  this.schedule( state +1 ,0.3*minute);
+  console.log("llamar la funcion actualizar ",new Date);
+  self.getListProductFromKana$().subscribe()
+
+
+},0.3*minute,0);
+
+
+
+}
 
 
 }

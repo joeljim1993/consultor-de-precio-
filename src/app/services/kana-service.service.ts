@@ -31,6 +31,9 @@ export class KanaService {
 
   constructor() {
 
+
+
+
     this.executeFunctionByTime$();
 
     this.getListProductFromKana$()
@@ -129,7 +132,6 @@ export class KanaService {
 
       this.currentPriceList$.next(currentPriceList);
 
-
       }),
       map(
         ({data: {currentPriceList:  {  products: { edges }, },},}) => {
@@ -137,7 +139,8 @@ export class KanaService {
 
             let productsKana:Product = edge.node.product;
             this.productsList.push( productsKana );
-            this.listProductsOfKana.next( this.productsList );
+            this.listProductsOfKana.next( this.productsList! );
+            
           });
         }
       )
@@ -145,13 +148,19 @@ export class KanaService {
     return data$;
   }
 
-  searchProduct(barcode: string): Product[] {
+  searchProduct(barcode: string): Product[] | undefined {
+    
+    if(this.productsList == null) return;
 
-    let foundProduct:Product[] = this.productsList.filter(products => products.barcode === barcode);
+    let foundProduct: Product[] = this.productsList.filter(products => products.barcode === barcode);
+
+    if (foundProduct.length == 0) {
+      return;
+    }
+
     this.productFound$.next(foundProduct[0]);
     this.verifyLastSearched( foundProduct[0] );
     return foundProduct;
-
   }
 
 
@@ -207,7 +216,7 @@ export class KanaService {
   }
 
 
-  // todo:hacer la peticion de lista de precio y verificar
+
   verifyListProduct$():Observable<any> {
 
     const query = `
@@ -220,7 +229,7 @@ export class KanaService {
 
     const data$ = this.getQuery(query).pipe(
 
-      tap((data:any) => console.log('se ejecuto verify', data)),
+      tap((data:any) => console.log('DATA', data)),
       map( ({data:{currentPriceList}})=>  currentPriceList.version  ),
       tap( listVersion  =>{
         if( listVersion == this.numberList )return;
@@ -252,9 +261,9 @@ executeFunctionByTime$():void{
 }
 
 
+/*
+000264
+000124
+7590006301391
 
-
-7591082000307
-2525252525251
-7591082000307
-7592591000154
+*/

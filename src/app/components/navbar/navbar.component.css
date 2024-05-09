@@ -41,9 +41,10 @@ h1 {
 }
 
 
-*/
 .text {
   font-family: 'Poppins', sans-serif;
-  font-weight: 900;
- 
+  font-weight: 700;
+  margin-top: 7px;
+  margin-left: 5px;
+
 }

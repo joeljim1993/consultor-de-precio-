@@ -23,9 +23,11 @@ export class SearchBoxComponent {
   inputSearch = new FormControl();
 
   constructor(private kanaservice: KanaService) {
+
     this.inputSearch.valueChanges.pipe(
       debounceTime(400),
       tap(barcodeSearch => {
+
         this.kanaservice.searchProduct(barcodeSearch);
         this.inputDos.nativeElement.value = "";
       } ),
@@ -38,7 +40,7 @@ export class SearchBoxComponent {
   searchProducts(): void {
 
     let barcodeSearch = this.txtInput.nativeElement.value;
-    let productFound: Product[] = this.kanaservice.searchProduct(barcodeSearch);
+    let productFound: Product[] |undefined = this.kanaservice.searchProduct(barcodeSearch);
     this.txtInput.nativeElement.value = "";
   }
 

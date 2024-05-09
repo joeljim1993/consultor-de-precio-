@@ -7,6 +7,7 @@ import { registerLocaleData } from '@angular/common';
 
 // manera como se importa los locales
 import localesEsVE from '@angular/common/locales/es-VE'
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 // se llama para poder registrar todos los locales
 registerLocaleData( localesEsVE);
@@ -24,18 +25,15 @@ export class AppComponent implements OnInit{
 
   // producto creado para el css de la card
 
-
-
-
-  //TODO: esto lo dejaria despejado
+constructor( private sanitizer: DomSanitizer){}
 
 
 
 ngOnInit(): void {
 
+
   this.kanaService.productFound$
     .pipe(
-      tap( info => console.log("que esta llegando en app  ",info)),
       tap( product => {
         // el behaviorSubject trae 0, cuando no existen busquedas
         if(product !=0 ){

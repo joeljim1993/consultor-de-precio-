@@ -19,8 +19,6 @@ export class LastSearchedComponent {
   constructor() {
 
     this.kanaservice.lastSearchedProducts$.pipe(
-
-      tap(info => console.log("lo que llega a lastSearchedProducts$", info)),
       tap(lastedProduct => this.latestProductSearches = lastedProduct),
 
     )

@@ -31,7 +31,7 @@ export class KanaService {
 
   constructor() {
 
-    this.prueba();
+    this.executeFunctionByTime$();
 
     this.getListProductFromKana$()
       .subscribe();
@@ -205,61 +205,46 @@ export class KanaService {
 
     return data$;
   }
-  // todo: crear una funcion que verifique la lista , si es distinta , actualiza la lista
-  checkPriceList(){
 
-  }
 
   // todo:hacer la peticion de lista de precio y verificar
   verifyListProduct$():Observable<any> {
-    console.log("ejecutando funcion ");
 
     const query = `
     query {
       currentPriceList{
           version
           createdAt
-          createdBy{
-          displayName
-
-          }
-
-
       }
     }`;
 
     const data$ = this.getQuery(query).pipe(
-      tap((data:any) => console.log('data2222', data)),
+
+      tap((data:any) => console.log('se ejecuto verify', data)),
       map( ({data:{currentPriceList}})=>  currentPriceList.version  ),
       tap( listVersion  =>{
         if( listVersion == this.numberList )return;
-        console.log("se ejecuto la funcion ");
-
         this.getListProductFromKana$();
+
       }),
-
-
-
     )
     return data$
-
   }
 
-prueba(){
 
-const minute:number = 60*1000;
-// se puede usar una variable para almacenar el contexto this, ya que puede cambiar dependiendo del ambito
-const self = this;
-const subs = asyncScheduler.schedule( function(state=0){
+executeFunctionByTime$():void{
 
-  this.schedule( state +1 ,0.3*minute);
-  console.log("llamar la funcion actualizar ",new Date);
-  self.getListProductFromKana$().subscribe()
+  const minute:number = 60*1000;
+  const timeToExecute:number = 10*minute;
+  const self = this;
 
+  // asyncScheduler.schedule(function(state){},tiempo,valor-state)
+  const subs = asyncScheduler.schedule( function(state=0){
 
-},0.3*minute,0);
+    this.schedule( state++ ,timeToExecute );
+    self.verifyListProduct$().subscribe();
 
-
+  },timeToExecute,0);
 
 }
 
